@@ -37,6 +37,7 @@ func mainMenu(){
     fmt.Print("PILIH MENU: ")
     fmt.Scan(&angka)
     
+    
 }
 
 func optionData1(T tabPemilik, A tabKendaraan){
