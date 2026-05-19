@@ -24,6 +24,7 @@ type tabRiwayat[NMAX]riwayatServis
 func main(){
     var
 }
+
 func mainMenu(){
     var angka int
     fmt.Println("AUTOCARE")
