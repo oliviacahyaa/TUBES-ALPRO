@@ -37,6 +37,7 @@ func mainMenu(){
     fmt.Print("PILIH MENU: ")
     fmt.Scan(&angka)
     fmt.Println("olip")
+    fmt.Println("====================================")
     
 }
 
