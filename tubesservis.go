@@ -71,3 +71,51 @@ func optionData1(T tabPemilik, A tabKendaraan){
         
     }
 }
+
+func BinarySearch(n int)int {
+	var left, right, mid, found int
+	
+	left = 0
+	right = n-1
+	found = -1
+	
+	for left <= right && found == -1 {
+		mid = (right+left)/2
+		if {
+			found = mid
+		}else if { //ketika data yg dicari > data array mid//
+			left = mid + 1
+		}else{ //ketika data yg dicari < data array mid//
+			right = mid - 1
+		}
+	}
+	return found
+}
+
+func Sequential()int {
+	var found, r int
+	found = -1
+	r = 0
+	for r <= n-1 && found == -1{
+		if{ //jika yg dicari == array r
+			found = r
+		}
+		r++
+	}
+}
+
+//selection itu procedure dengan array sebagai in/out
+func SelectionSort(){
+	var pass, i, acuan, temp int
+	for pass = 1; pass < ; pass++{
+		acuan = pass - 1
+		for i = pass; i < ; i++{
+			if // array acuan > array i// {
+				acuan = i
+			}
+		}
+		temp = // array acuan
+		//array acuan = array pass - 1
+		//array pass - 1 = temp
+	}
+}
