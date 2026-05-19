@@ -1,7 +1,7 @@
 package main
 import "fmt"
 
-const NMAX int = 10000
+const NMAX int = 100000
 type dataPemilik struct{
     nama string
     kontak string
