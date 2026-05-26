@@ -107,7 +107,7 @@ func Sequential()int {
 }
 
 //selection itu procedure dengan array sebagai in/out
-func SelectionSort(){
+func SelectionSortAsc(){
 	var pass, i, acuan, temp int
 	for pass = 1; pass < ; pass++{
 		acuan = pass - 1
@@ -119,5 +119,32 @@ func SelectionSort(){
 		temp = // array acuan
 		//array acuan = array pass - 1
 		//array pass - 1 = temp
+	}
+}
+
+func SelectionSortDesc(){
+	var pass, i, acuan, temp int
+	for pass = 1; pass < ; pass++{
+		acuan = pass - 1
+		for i = pass; i < ; i++{
+			if // array acuan > array i// {
+				acuan = i
+			}
+		}
+		temp = // array acuan
+		//array acuan = array pass - 1
+		//array pass - 1 = temp
+	}
+}
+
+func tambahData(dP *tabPemilik, n *int){
+	var namaPemilik string
+	fmt.Scan(&namaPemilik)
+	*n = 0
+	for namaPemilik != "SELESAI" {
+		dP[*n].nama = namaPemilik
+		fmt.Scan(&dP[*n].kontak)
+		*n++
+		fmt.Scan(&namaPemilik)
 	}
 }
