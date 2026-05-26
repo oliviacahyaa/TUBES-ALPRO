@@ -106,34 +106,43 @@ func Sequential()int {
 	}
 }
 
-//selection itu procedure dengan array sebagai in/out
-func SelectionSortAsc(){
-	var pass, i, acuan, temp int
-	for pass = 1; pass < ; pass++{
+//Selection yg berdasarkan tahun produksi kendaraan//
+func SelectionSortAsc(dK *tabKendaraan, n int){
+	var pass, i, acuan int
+	var temp dataKendaraan
+	for pass = 1; pass < n; pass++{
 		acuan = pass - 1
-		for i = pass; i < ; i++{
-			if // array acuan > array i// {
+		for i = pass; i < n; i++{
+			if dK[acuan].tahunProduksi > dK[i].tahunProduksi{
 				acuan = i
 			}
 		}
-		temp = // array acuan
-		//array acuan = array pass - 1
-		//array pass - 1 = temp
+		temp = dK[acuan]
+		dK[acuan] = dK[pass-1]
+		dK[pass-1] = temp
 	}
 }
 
-func SelectionSortDesc(){
-	var pass, i, acuan, temp int
-	for pass = 1; pass < ; pass++{
+func SelectionSortDesc(dK *tabKendaraan, n int){
+	var pass, i, acuan int
+	var temp dataKendaraan
+	for pass = 1; pass < n; pass++{
 		acuan = pass - 1
-		for i = pass; i < ; i++{
-			if // array acuan > array i// {
+		for i = pass; i < n; i++{
+			if dK[acuan].tahunProduksi < dK[i].tahunProduksi{
 				acuan = i
 			}
 		}
-		temp = // array acuan
-		//array acuan = array pass - 1
-		//array pass - 1 = temp
+		temp = dK[acuan]
+		dK[acuan] = dK[pass-1]
+		dK[pass-1] = temp
+	}
+}
+
+func cetakData(dK tabKendaraan, n int){
+	var i int
+	for i = 0; i < n; i++{
+		fmt.Printf("%s %s %d\n", dK[i].jenisKendaraan, dK[i].noKendaraan, dK[i].tahunProduksi)
 	}
 }
 
