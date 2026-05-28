@@ -59,6 +59,7 @@ func mainMenu(pemilik *tabPemilik, kendaraan *tabKendaraan, servis *tabRiwayat, 
 	case 3:
 		optionData3(kendaraan, *nData)
 	case 4:
+
 	case 5:
 	case 6:
 		return false
@@ -142,4 +143,73 @@ func cariPlat(A *tabKendaraan, n int, targetPlat string, idx *int) int {
 	}
 	*idx = -1
 	return -1
+}
+
+func SelectionSortAsc(dK *tabKendaraan, n int) {
+	var pass, i, acuan int
+	var temp dataKendaraan
+	for pass = 1; pass < n; pass++ {
+		acuan = pass - 1
+		for i = pass; i < n; i++ {
+			if dK[acuan].tahunProduksi > dK[i].tahunProduksi {
+				acuan = i
+			}
+		}
+		temp = dK[acuan]
+		dK[acuan] = dK[pass-1]
+		dK[pass-1] = temp
+	}
+}
+
+func SelectionSortDesc(dK *tabKendaraan, n int) {
+	var pass, i, acuan int
+	var temp dataKendaraan
+	for pass = 1; pass < n; pass++ {
+		acuan = pass - 1
+		for i = pass; i < n; i++ {
+			if dK[acuan].tahunProduksi < dK[i].tahunProduksi {
+				acuan = i
+			}
+		}
+		temp = dK[acuan]
+		dK[acuan] = dK[pass-1]
+		dK[pass-1] = temp
+	}
+}
+
+func cetakData(dK tabKendaraan, n int) {
+	var i int
+	for i = 0; i < n; i++ {
+		fmt.Printf("%s %s %d\n", dK[i].jenisKendaraan, dK[i].plat, dK[i].tahunProduksi)
+	}
+}
+
+func InsertionSortDesc(dK *tabKendaraan, n int) {
+	var pass, k int
+	var temp dataKendaraan
+
+	for pass = 1; pass < n; pass++ {
+		k = pass
+		temp = dK[k]
+		for k > 0 && temp.tahunProduksi > dK[k-1].tahunProduksi {
+			dK[k] = dK[k-1]
+			k = k - 1
+		}
+		dK[k] = temp
+	}
+}
+
+func InsertionSortAsc(dK *tabKendaraan, n int) {
+	var pass, k int
+	var temp dataKendaraan
+
+	for pass = 1; pass < n; pass++ {
+		k = pass
+		temp = dK[k]
+		for k > 0 && temp.tahunProduksi < dK[k-1].tahunProduksi {
+			dK[k] = dK[k-1]
+			k = k - 1
+		}
+		dK[k] = temp
+	}
 }
