@@ -133,19 +133,9 @@ func optionData2(T *tabPemilik, A *tabKendaraan, B *tabRiwayat, nData int, nServ
 
 }
 
-func cariPlat(A *tabKendaraan, n int, targetPlat string, idx *int) int {
-	var i int
-	for i = 0; i < n; i++ {
-		if A[i].plat == targetPlat {
-			*idx = i
-			return i
-		}
-	}
-	*idx = -1
-	return -1
-}
-
-func SelectionSortAsc(dK *tabKendaraan, n int) {
+//Fungsi Sorting untuk mengurutkan data kendaraan berdasarkan tahun produksi menggunakan metode Selection Sort dan Insertion Sort, baik secara ascending maupun descending.
+// untuk yg syarat d
+func SelectionSortAscTahunProduksi(dK *tabKendaraan, n int) {
 	var pass, i, acuan int
 	var temp dataKendaraan
 	for pass = 1; pass < n; pass++ {
@@ -161,7 +151,7 @@ func SelectionSortAsc(dK *tabKendaraan, n int) {
 	}
 }
 
-func SelectionSortDesc(dK *tabKendaraan, n int) {
+func SelectionSortDescTahunProduksi(dK *tabKendaraan, n int) {
 	var pass, i, acuan int
 	var temp dataKendaraan
 	for pass = 1; pass < n; pass++ {
@@ -177,14 +167,14 @@ func SelectionSortDesc(dK *tabKendaraan, n int) {
 	}
 }
 
-func cetakData(dK tabKendaraan, n int) {
+func cetakDataSorting(dK tabKendaraan, n int) {
 	var i int
 	for i = 0; i < n; i++ {
 		fmt.Printf("%s %s %d\n", dK[i].jenisKendaraan, dK[i].plat, dK[i].tahunProduksi)
 	}
 }
 
-func InsertionSortDesc(dK *tabKendaraan, n int) {
+func InsertionSortDescTahunProduksi(dK *tabKendaraan, n int) {
 	var pass, k int
 	var temp dataKendaraan
 
@@ -199,7 +189,7 @@ func InsertionSortDesc(dK *tabKendaraan, n int) {
 	}
 }
 
-func InsertionSortAsc(dK *tabKendaraan, n int) {
+func InsertionSortAscTahunProduksi(dK *tabKendaraan, n int) {
 	var pass, k int
 	var temp dataKendaraan
 
@@ -211,5 +201,69 @@ func InsertionSortAsc(dK *tabKendaraan, n int) {
 			k = k - 1
 		}
 		dK[k] = temp
+	}
+}
+
+// Fungsi Searching untuk mencari data kendaraan berdasarkan nomor plat menggunakan metode Sequential Search dan Binary Search.
+// untuk yg syarat c
+func sequentialSearchPlat(kendaraan *tabKendaraan, n int, plat string) int {
+	var found int = -1
+	var i int = 0
+	for i <= n-1 && found == -1 {
+		if plat == kendaraan[i].plat {
+			found = i
+		}
+		i = i + 1
+	}
+	return found
+}
+
+func binarySearchPlat(kendaraan *tabKendaraan, n int, plat string) int {
+	var found int = -1
+	var left int = 0
+	var right int = n - 1
+	var mid int
+	for left <= right && found == -1 {
+		mid = (left + right) / 2
+		if plat == kendaraan[mid].plat {
+			found = mid
+		} else if plat < kendaraan[mid].plat {
+			right = mid - 1
+		} else {
+			left = mid + 1
+		}
+	}
+	return found
+}
+
+func SelectionSortAscPlat(dK *tabKendaraan, n int) {
+	var pass, i, acuan int
+	var temp dataKendaraan
+	for pass = 1; pass < n; pass++ {
+		acuan = pass - 1
+		for i = pass; i < n; i++ {
+			if dK[acuan].plat > dK[i].plat {
+				acuan = i
+			}
+		}
+		temp = dK[acuan]
+		dK[acuan] = dK[pass-1]
+		dK[pass-1] = temp
+	}
+}
+
+func SelectionSortDescPlat(dK *tabKendaraan, n int) {
+	var pass, i, acuan int
+	var temp dataKendaraan
+	for pass = 1; pass < n; pass++ {
+		acuan = pass - 1
+		for i = pass; i < n; i++ {
+			if dK[acuan].plat < dK[i].plat {
+				acuan = i
+			}
+		}
+		temp = dK[acuan]
+		dK[acuan] = dK[pass-1]
+		dK[pass-1] = temp
 	}
 }
