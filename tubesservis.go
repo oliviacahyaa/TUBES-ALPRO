@@ -305,3 +305,10 @@ func SelectionSortDescPlat(dK *tabKendaraan, n int) {
 		dK[pass-1] = temp
 	}
 }
+
+func cetakData(dK tabKendaraan, n int) {
+	var i int
+	for i = 0; i < n; i++ {
+		fmt.Printf("%s %s %d\n", dK[i].jenisKendaraan, dK[i].plat, dK[i].tahunProduksi)
+	}
+}
