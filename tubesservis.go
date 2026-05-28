@@ -1,159 +1,145 @@
 package main
+
 import "fmt"
 
-const NMAX int = 100000
-type dataPemilik struct{
-    nama string
-    kontak string
-}
-type dataKendaraan struct{
-    jenisKendaraan string
-    noKendaraan string
-    tahunProduksi int
-}
+const NMAX int = 1000
 
-type riwayatServis struct{
-    tanggalServis string
-    jenisKerusakan string
-    detailServis string
+type dataPemilik struct {
+	nama   string
+	kontak string
+}
+type dataKendaraan struct {
+	jenisKendaraan string
+	plat           string
+	tahunProduksi  int
 }
 
-type tabPemilik[NMAX]dataPemilik
-type tabKendaraan[NMAX]dataKendaraan
-type tabRiwayat[NMAX]riwayatServis
-func main(){
-    var
+type riwayatServis struct {
+	tanggalServis  string
+	jenisKerusakan string
+	detailServis   string
 }
 
-func mainMenu(){
-    var angka int
-    fmt.Println("AUTOCARE")
-    fmt.Println("Aplikasi Manajemen dan Riwayat Servis Kendaraan")
-    fmt.Println("1. Data Kendaraan & Pemilik")
-    fmt.Println("2. Tambah Riwayat Servis Baru")
-    fmt.Println("3. Search Kendaraan")
-    fmt.Println("4. Urutan Daftar Kendaraan")
-    fmt.Println("5. Statistik Servis")
-    fmt.Println("6. Keluar")
-    fmt.Print("PILIH MENU: ")
-    fmt.Scan(&angka)
-    
-    
-}
+type tabPemilik [NMAX]dataPemilik
+type tabKendaraan [NMAX]dataKendaraan
+type tabRiwayat [NMAX]riwayatServis
 
-func optionData1(T tabPemilik, A tabKendaraan){
-    fmt.Println("DATA KENDARAAN & PEMILIK")
-    fmt.Println("1. ADD")
-    fmt.Println("2. EDIT")
-    fmt.Println("3. DELETE")
-    fmt.Print.("PILIH MENU: ")
-    switch pilihan {
-    case 1:
-        fmt.Println("ADD")
-        fmt.Print("NAMA: ")
-        fmt.Scan(&T.nama)
-        fmt.Print("KONTAK: ")
-        fmt.Scan(&T.kontak)
-        fmt.Print("JENIS KENDARAAN: ")
-        fmt.Scan(&A.jenisKendaraan)
-        fmt.Print("NOMOR PLAT: ")
-        fmt.Scan(&A.noKendaraan)
-        fmt.Print("TAHUN PRODUKSI: ")
-        fmt.Scan(&A.tahunProduksi)
-    
-    case 2:
-    case 3:
-    }
-
-    func optionData2(){
-
-    }
-
-    funcoptionData3(){
-        
-    }
-}
-
-func BinarySearch(n int)int {
-	var left, right, mid, found int
-	
-	left = 0
-	right = n-1
-	found = -1
-	
-	for left <= right && found == -1 {
-		mid = (right+left)/2
-		if {
-			found = mid
-		}else if { //ketika data yg dicari > data array mid//
-			left = mid + 1
-		}else{ //ketika data yg dicari < data array mid//
-			right = mid - 1
-		}
+func main() {
+	var daftarPemilik tabPemilik
+	var daftarKendaraan tabKendaraan
+	var daftarRiwayat tabRiwayat
+	var nData int = 0
+	var nServis int = 0
+	var keluar bool = true
+	for keluar == true {
+		keluar = mainMenu(&daftarPemilik, &daftarKendaraan, &daftarRiwayat, &nData, &nServis)
 	}
-	return found
+}
+func mainMenuUI() {
+	fmt.Println("AUTOCARE")
+	fmt.Println("Aplikasi Manajemen dan Riwayat Servis Kendaraan")
+	fmt.Println("1. Data Kendaraan & Pemilik")
+	fmt.Println("2. Tambah Riwayat Servis Baru")
+	fmt.Println("3. Search Kendaraan")
+	fmt.Println("4. Sorting Daftar Kendaraan")
+	fmt.Println("5. Statistik Servis")
+	fmt.Println("6. Keluar")
+	fmt.Print("PILIH MENU: ")
 }
 
-func Sequential()int {
-	var found, r int
-	found = -1
-	r = 0
-	for r <= n-1 && found == -1{
-		if{ //jika yg dicari == array r
-			found = r
+func mainMenu(pemilik *tabPemilik, kendaraan *tabKendaraan, servis *tabRiwayat, nData *int, nServis *int) bool {
+	var angka int
+	mainMenuUI()
+	fmt.Scan(&angka)
+	switch angka {
+	case 1:
+		optionData1(pemilik, kendaraan, nData)
+	case 2:
+		optionData2(pemilik, kendaraan, servis, *nData, nServis)
+	case 3:
+		optionData3(kendaraan, *nData)
+	case 4:
+	case 5:
+	case 6:
+		return false
+	}
+	return true
+}
+
+func optionData1(T *tabPemilik, A *tabKendaraan, nData *int) {
+	var pilih int
+	fmt.Println("DATA KENDARAAN & PEMILIK")
+	fmt.Println("1. ADD")
+	fmt.Println("2. EDIT")
+	fmt.Println("3. DELETE")
+	fmt.Print("PILIH MENU: ")
+	fmt.Scan(&pilih)
+	switch pilih {
+	case 1:
+		fmt.Println("ADD")
+		var next string = "YES"
+		fmt.Printf("%03d.\n", *nData+1)
+		for next == "YES" && *nData < NMAX {
+			fmt.Print("NAMA: ")
+			fmt.Scan(&T[*nData].nama)
+			fmt.Print("NO.KONTAK: ")
+			fmt.Scan(&T[*nData].kontak)
+			fmt.Print("JENIS KENDARAAN: ")
+			fmt.Scan(&A[*nData].jenisKendaraan)
+			fmt.Print("NOMOR PLAT: ")
+			fmt.Scan(&A[*nData].plat)
+			fmt.Print("TAHUN PRODUKSI: ")
+			fmt.Scan(&A[*nData].tahunProduksi)
+			*nData = *nData + 1
+			fmt.Println("Data berhasil disimpan!")
+			fmt.Print("Apakah ingin tambah data lagi? (YES/NO): ")
+			fmt.Scan(&next)
 		}
-		r++
+	case 2:
+		fmt.Println("EDIT")
+	case 3:
+		fmt.Println("DELETE")
+
 	}
 }
 
-//Selection yg berdasarkan tahun produksi kendaraan//
-func SelectionSortAsc(dK *tabKendaraan, n int){
-	var pass, i, acuan int
-	var temp dataKendaraan
-	for pass = 1; pass < n; pass++{
-		acuan = pass - 1
-		for i = pass; i < n; i++{
-			if dK[acuan].tahunProduksi > dK[i].tahunProduksi{
-				acuan = i
-			}
+func optionData2(T *tabPemilik, A *tabKendaraan, B *tabRiwayat, nData int, nServis *int) {
+	var targetPlat string
+	var idx int = -1
+	fmt.Print("MASUKKAN NOMOR PLAT KENDARAAN : ")
+	fmt.Scan(&targetPlat)
+	cariPlat(A, nData, targetPlat, &idx)
+	if idx != -1 {
+		fmt.Println("DATA PELANGGAN DITEMUKAN!")
+		fmt.Printf("%03d.\n", idx+1)
+		fmt.Printf("NAMA: %s\n", T[idx].nama)
+		fmt.Printf("NO.KONTAK: %s\n", T[idx].kontak)
+		fmt.Printf("JENIS KENDARAAN: %s\n", A[idx].jenisKendaraan)
+		fmt.Printf("NOMOR PLAT: %s\n", A[idx].plat)
+		fmt.Printf("TAHUN PRODUKSI: %d\n", A[idx].tahunProduksi)
+		fmt.Print("TANGGAL SERVIS: ")
+		fmt.Scan(&B[*nServis].tanggalServis)
+		fmt.Printf("%03d.\n", *nServis+1)
+		for B[*nServis].tanggalServis != "SELESAI" && *nServis < NMAX {
+			fmt.Print("JENIS KERUSAKAN: ")
+			fmt.Scan(&B[*nServis].jenisKerusakan)
+			fmt.Print("DETAIL SERVIS: ")
+			fmt.Scan(&B[*nServis].detailServis)
+			*nServis = *nServis + 1
+			fmt.Scan(&B[*nServis].tanggalServis)
 		}
-		temp = dK[acuan]
-		dK[acuan] = dK[pass-1]
-		dK[pass-1] = temp
 	}
+
 }
 
-func SelectionSortDesc(dK *tabKendaraan, n int){
-	var pass, i, acuan int
-	var temp dataKendaraan
-	for pass = 1; pass < n; pass++{
-		acuan = pass - 1
-		for i = pass; i < n; i++{
-			if dK[acuan].tahunProduksi < dK[i].tahunProduksi{
-				acuan = i
-			}
-		}
-		temp = dK[acuan]
-		dK[acuan] = dK[pass-1]
-		dK[pass-1] = temp
-	}
-}
-
-func cetakData(dK tabKendaraan, n int){
+func cariPlat(A *tabKendaraan, n int, targetPlat string, idx *int) int {
 	var i int
-	for i = 0; i < n; i++{
-		fmt.Printf("%s %s %d\n", dK[i].jenisKendaraan, dK[i].noKendaraan, dK[i].tahunProduksi)
+	for i = 0; i < n; i++ {
+		if A[i].plat == targetPlat {
+			*idx = i
+			return i
+		}
 	}
-}
-
-func tambahData(dP *tabPemilik, n *int){
-	var namaPemilik string
-	fmt.Scan(&namaPemilik)
-	*n = 0
-	for namaPemilik != "SELESAI" {
-		dP[*n].nama = namaPemilik
-		fmt.Scan(&dP[*n].kontak)
-		*n++
-		fmt.Scan(&namaPemilik)
-	}
+	*idx = -1
+	return -1
 }
