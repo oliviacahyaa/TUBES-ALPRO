@@ -109,7 +109,7 @@ func optionData2(T *tabPemilik, A *tabKendaraan, B *tabRiwayat, nData int, nServ
 	var idx int = -1
 	fmt.Print("MASUKKAN NOMOR PLAT KENDARAAN : ")
 	fmt.Scan(&targetPlat)
-	cariPlat(A, nData, targetPlat, &idx)
+
 	if idx != -1 {
 		fmt.Println("DATA PELANGGAN DITEMUKAN!")
 		fmt.Printf("%03d.\n", idx+1)
@@ -224,23 +224,23 @@ func optionData3(kendaraan *tabKendaraan, n int) {
 			var plat string
 			fmt.Print("Masukkan plat yang ingin dicari: ")
 			fmt.Scan(&plat)
-			SelectionSortAscPlat(&kendaraan, n)
-			binarySearch(&kendaraan, n, plat)
-			cetakData(kendaraan, n)
+			SelectionSortAscPlat(kendaraan, n)
+			binarySearchPlat(kendaraan, n, plat)
+			cetakData(*kendaraan, n)
 		case 2:
 			var plat string
 			fmt.Print("Masukkan plat yang ingin dicari: ")
 			fmt.Scan(&plat)
-			SelectionSortDescPlat(&kendaraan, n)
-			binarySearch(&kendaraan, n, plat)
-			cetakData(kendaraan, n)
+			SelectionSortDescPlat(kendaraan, n)
+			binarySearchPlat(kendaraan, n, plat)
+			cetakData(*kendaraan, n)
 		}
 	case 2:
 		var plat string
 		fmt.Print("Masukkan plat yang ingin dicari: ")
 		fmt.Scan(&plat)
-		sequentialSearch(&kendaraan, n, plat)
-		cetakData(kendaraan, n)
+		sequentialSearchPlat(kendaraan, n, plat)
+		cetakData(*kendaraan, n)
 	}
 }
 

@@ -55,7 +55,7 @@ func sequentialSearch(kendaraan *tabKendaraan, n int, plat string) int {
 	return found
 }
 
-func binarySearch(kendaraan *tabKendaraan, n int, plat string) int {
+func binarySearchplat(kendaraan *tabKendaraan, n int, plat string) int {
 	var found int = -1
 	var left int = 0
 	var right int = n - 1
@@ -105,6 +105,13 @@ func SelectionSortDescPlat(dK *tabKendaraan, n int) {
 	}
 }
 
+func cetakData(dK tabKendaraan, n int) {
+	var i int
+	for i = 0; i < n; i++ {
+		fmt.Printf("%s %s %d\n", dK[i].jenisKendaraan, dK[i].plat, dK[i].tahunProduksi)
+	}
+}
+
 func main() {
 	var pemilik tabPemilik
 	var kendaraan tabKendaraan
@@ -114,40 +121,44 @@ func main() {
 	case 1:
 		tambahData(&pemilik, &kendaraan, &n)
 	case 2:
-		var angka int
-		fmt.Println("Apakah data plat ingin diurutkan?")
-		fmt.Println("1. YA")
-		fmt.Println("2. TIDAK")
-		fmt.Scan(&angka)
-		switch angka {
+		optionData3(&kendaraan, n)
+	}
+}
+
+func optionData3(kendaraan *tabKendaraan, n int) {
+	var angka int
+	fmt.Println("Apakah data plat ingin diurutkan?")
+	fmt.Println("1. YA")
+	fmt.Println("2. TIDAK")
+	fmt.Scan(&angka)
+	switch angka {
+	case 1:
+		var urutan int
+		fmt.Println("Urutan data plat:")
+		fmt.Println("1. Ascending")
+		fmt.Println("2. Descending")
+		fmt.Scan(&urutan)
+		switch urutan {
 		case 1:
-			var urutan int
-			fmt.Println("Urutan data plat:")
-			fmt.Println("1. Ascending")
-			fmt.Println("2. Descending")
-			fmt.Scan(&urutan)
-			switch urutan {
-			case 1:
-				var plat string
-				fmt.Print("Masukkan plat yang ingin dicari: ")
-				fmt.Scan(&plat)
-				SelectionSortAscPlat(&kendaraan, n)
-				binarySearch(&kendaraan, n, plat)
-				cetakData(kendaraan, n)
-			case 2:
-				var plat string
-				fmt.Print("Masukkan plat yang ingin dicari: ")
-				fmt.Scan(&plat)
-				SelectionSortDescPlat(&kendaraan, n)
-				binarySearch(&kendaraan, n, plat)
-				cetakData(kendaraan, n)
-			}
+			var plat string
+			fmt.Print("Masukkan plat yang ingin dicari: ")
+			fmt.Scan(&plat)
+			SelectionSortAscPlat(&kendaraan, n)
+			binarySearchplat(&kendaraan, n, plat)
+			cetakData(kendaraan, n)
 		case 2:
 			var plat string
 			fmt.Print("Masukkan plat yang ingin dicari: ")
 			fmt.Scan(&plat)
-			sequentialSearch(&kendaraan, n, plat)
+			SelectionSortDescPlat(&kendaraan, n)
+			binarySearchplat(&kendaraan, n, plat)
 			cetakData(kendaraan, n)
 		}
+	case 2:
+		var plat string
+		fmt.Print("Masukkan plat yang ingin dicari: ")
+		fmt.Scan(&plat)
+		sequentialSearch(&kendaraan, n, plat)
+		cetakData(kendaraan, n)
 	}
 }
