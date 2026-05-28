@@ -206,6 +206,44 @@ func InsertionSortAscTahunProduksi(dK *tabKendaraan, n int) {
 
 // Fungsi Searching untuk mencari data kendaraan berdasarkan nomor plat menggunakan metode Sequential Search dan Binary Search.
 // untuk yg syarat c
+func optionData3(kendaraan *tabKendaraan, n int) {
+	var angka int
+	fmt.Println("Apakah data plat ingin diurutkan?")
+	fmt.Println("1. YA")
+	fmt.Println("2. TIDAK")
+	fmt.Scan(&angka)
+	switch angka {
+	case 1:
+		var urutan int
+		fmt.Println("Urutan data plat:")
+		fmt.Println("1. Ascending")
+		fmt.Println("2. Descending")
+		fmt.Scan(&urutan)
+		switch urutan {
+		case 1:
+			var plat string
+			fmt.Print("Masukkan plat yang ingin dicari: ")
+			fmt.Scan(&plat)
+			SelectionSortAscPlat(&kendaraan, n)
+			binarySearch(&kendaraan, n, plat)
+			cetakData(kendaraan, n)
+		case 2:
+			var plat string
+			fmt.Print("Masukkan plat yang ingin dicari: ")
+			fmt.Scan(&plat)
+			SelectionSortDescPlat(&kendaraan, n)
+			binarySearch(&kendaraan, n, plat)
+			cetakData(kendaraan, n)
+		}
+	case 2:
+		var plat string
+		fmt.Print("Masukkan plat yang ingin dicari: ")
+		fmt.Scan(&plat)
+		sequentialSearch(&kendaraan, n, plat)
+		cetakData(kendaraan, n)
+	}
+}
+
 func sequentialSearchPlat(kendaraan *tabKendaraan, n int, plat string) int {
 	var found int = -1
 	var i int = 0
