@@ -157,7 +157,6 @@ func optionData1(T *tabPemilik, A *tabKendaraan, nData *int) {
 		fmt.Println("DELETE")
 		var targetPlat string
 		var idx int = -1
-		var pilih int
 		var next string = "YES"
 		if *nData == 0 {
 			fmt.Println("Data kosong. Harap tambahkan data terlebih dahulu.")
@@ -225,8 +224,9 @@ func optionData2(T *tabPemilik, A *tabKendaraan, B *tabRiwayat, nData int, nServ
 			fmt.Print("Apakah ingin tambah data lagi? (YES/NO): ")
 			fmt.Scan(&next)
 		}
+	} else {
+		fmt.Println("DATA PELANGGAN TIDAK DITEMUKAN!")
 	}
-
 }
 
 func optionData3(T *tabPemilik, A *tabKendaraan, B *tabRiwayat, nData int, nServis int) {
@@ -316,7 +316,7 @@ func optionData4(T *tabPemilik, A *tabKendaraan, nData int) {
 
 }
 
-func optionsData5(B *tabRiwayat, nServis int) {
+func optionData5(B *tabRiwayat, nServis int) {
 	var pilih int
 	fmt.Println("STATISTIK SERVIS")
 	fmt.Println("1. Statistik Jenis Kerusakan")
