@@ -61,7 +61,7 @@ func mainMenu(pemilik *tabPemilik, kendaraan *tabKendaraan, servis *tabRiwayat, 
 	case 3:
 		optionData3(pemilik, kendaraan, servis, *nData, *nServis)
 	case 4:
-		optionData4(pemilik, kendaraan, *nData)
+		optionData4(kendaraan, *nData)
 	case 5:
 		optionData5(servis, *nServis)
 	case 6:
@@ -165,6 +165,9 @@ func optionData1(T *tabPemilik, A *tabKendaraan, nData *int) {
 						fmt.Print("MASUKKAN TAHUN PRODUKSI BARU: ")
 						fmt.Scan(&A[idx].tahunProduksi)
 					}
+					fmt.Println("\nDATA BERHASIL DIUPDATE!")
+					fmt.Print("APAKAH ADA DATA LAIN YANG INGIN DIEDIT? (YES/NO): ")
+					fmt.Scan(&next)
 				}
 			} else {
 				fmt.Printf("DATA DENGAN NOMOR PLAT %s TIDAK DITEMUKAN!, HARAP MASUKKAN TERLEBIH DAHULU PADA MENU '[1] ADD'\n", targetPlat)
@@ -233,7 +236,7 @@ func optionData2(T *tabPemilik, A *tabKendaraan, B *tabRiwayat, nData int, nServ
 		for next == "YES" && *nServis < NMAX {
 			fmt.Print("TANGGAL SERVIS (TANGGAL BULAN TAHUN)(DD MM YYYY): ")
 			fmt.Scan(&B[*nServis].tanggal, &B[*nServis].bulan, &B[*nServis].tahun)
-			fmt.Print("OPSI JENIS KERUSAKAN: ")
+			fmt.Println("OPSI JENIS KERUSAKAN: ")
 			fmt.Println("[1] SERVIS_BERKALA")
 			fmt.Println("[2] MESIN")
 			fmt.Println("[3] KELISTRIKAN")
@@ -370,7 +373,7 @@ func optionData3(T *tabPemilik, A *tabKendaraan, B *tabRiwayat, nData int, nServ
 
 }
 
-func optionData4(T *tabPemilik, A *tabKendaraan, nData int) {
+func optionData4(A *tabKendaraan, nData int) {
 	var pilih int
 	var pilihSorting int
 	var pilihUrutan int
@@ -411,6 +414,27 @@ func optionData4(T *tabPemilik, A *tabKendaraan, nData int) {
 		case 2:
 			switch pilihUrutan {
 			case 1:
+				InsertionSortAscPlat(A, nData)
+				cetakData(*A, nData)
+			case 2:
+				InsertionSortDescPlat(A, nData)
+				cetakData(*A, nData)
+			}
+		}
+	case 2:
+		switch pilihSorting {
+		case 1:
+			switch pilihUrutan {
+			case 1:
+				SelectionSortAscTahun(A, nData)
+				cetakData(*A, nData)
+			case 2:
+				SelectionSortDescTahun(A, nData)
+				cetakData(*A, nData)
+			}
+		case 2:
+			switch pilihUrutan {
+			case 1:
 				InsertionSortAscTahun(A, nData)
 				cetakData(*A, nData)
 			case 2:
@@ -432,6 +456,8 @@ func optionData5(B *tabRiwayat, nServis int) {
 	switch pilih {
 	case 1:
 		fmt.Println("STATISTIK JENIS KERUSAKAN")
+		var jenisKerusakan = [6]string{
+			"SERVIS_BERKALA", "MESIN", "KELISTRIKAN", "BODY", "BAN", "KAKI-KAKI"}
 		var pilihan [6]int
 		var i int
 		for i = 0; i < nServis; i++ {
@@ -452,7 +478,7 @@ func optionData5(B *tabRiwayat, nServis int) {
 		}
 		fmt.Println("HASIL STATISTIK JENIS KERUSAKAN:")
 		for i = 0; i < 6; i++ {
-			fmt.Printf("Jenis kerusakan %d: %d\n", i+1, pilihan[i])
+			fmt.Printf("JENIS KERUSAKAN %s: (%d kasus)\n", jenisKerusakan[i], pilihan[i])
 		}
 		fmt.Print("JENIS KERUSAKAN YANG PALING SERING TERJADI: ")
 		var max = pilihan[0]
@@ -461,7 +487,7 @@ func optionData5(B *tabRiwayat, nServis int) {
 				max = pilihan[i]
 			}
 		}
-		fmt.Println(max)
+		fmt.Printf("%s (%d kasus)\n", jenisKerusakan[max], pilihan[max])
 
 		fmt.Print("JENIS KERUSAKAN YANG JARANG TERJADI: ")
 		var min = pilihan[0]
@@ -470,10 +496,12 @@ func optionData5(B *tabRiwayat, nServis int) {
 				min = pilihan[i]
 			}
 		}
-		fmt.Println(min)
+		fmt.Printf("%s (%d kasus)\n", jenisKerusakan[min], pilihan[min])
 	case 2:
 		fmt.Println("STATISTIK JUMLAH SERVIS PER BULAN")
 		var bulan [12]int
+		var namaBulan = [12]string{
+			"JANUARI", "FEBRUARI", "MARET", "APRIL", "MEI", "JUNI", "JULI", "AGUSTUS", "SEPTEMBER", "OKTOBER", "NOVEMBER", "DESEMBER"}
 		var i int
 		for i = 0; i < nServis; i++ {
 			switch B[i].bulan {
@@ -504,7 +532,7 @@ func optionData5(B *tabRiwayat, nServis int) {
 			}
 			fmt.Println("HASIL STATISTIK JUMLAH SERVIS PER BULAN:")
 			for i = 0; i < 12; i++ {
-				fmt.Printf("Bulan %d: %d\n", i+1, bulan[i])
+				fmt.Printf("BULAN %s: (%d kasus)\n", namaBulan[i], bulan[i])
 			}
 			fmt.Print("BULAN DENGAN JUMLAH SERVIS PALING BANYAK: ")
 			var max = bulan[0]
@@ -513,7 +541,7 @@ func optionData5(B *tabRiwayat, nServis int) {
 					max = bulan[i]
 				}
 			}
-			fmt.Println(max)
+			fmt.Printf("BULAN %s: (%d kasus)\n", namaBulan[max], max)
 			fmt.Print("BULAN DENGAN JUMLAH SERVIS PALING SEDIKIT: ")
 			var min = bulan[0]
 			for i = 1; i < 12; i++ {
@@ -521,7 +549,7 @@ func optionData5(B *tabRiwayat, nServis int) {
 					min = bulan[i]
 				}
 			}
-			fmt.Println(min)
+			fmt.Printf("BULAN %s: (%d kasus)\n", namaBulan[min], min)
 		}
 	}
 }
@@ -612,6 +640,34 @@ func SelectionSortDescPlat(dK *tabKendaraan, n int) {
 	}
 }
 
+func InsertionSortAscPlat(dK *tabKendaraan, n int) {
+	var pass, k int
+	var temp dataKendaraan
+	for pass = 1; pass < n; pass++ {
+		k = pass
+		temp = dK[k]
+		for k > 0 && temp.plat < dK[k-1].plat {
+			dK[k] = dK[k-1]
+			k = k - 1
+		}
+		dK[k] = temp
+	}
+}
+
+func InsertionSortDescPlat(dK *tabKendaraan, n int) {
+	var pass, k int
+	var temp dataKendaraan
+	for pass = 1; pass < n; pass++ {
+		k = pass
+		temp = dK[k]
+		for k > 0 && temp.plat > dK[k-1].plat {
+			dK[k] = dK[k-1]
+			k = k - 1
+		}
+		dK[k] = temp
+	}
+}
+
 func InsertionSortDescTahun(dK *tabKendaraan, n int) {
 	var pass, k int
 	var temp dataKendaraan
@@ -639,6 +695,38 @@ func InsertionSortAscTahun(dK *tabKendaraan, n int) {
 			k = k - 1
 		}
 		dK[k] = temp
+	}
+}
+
+func SelectionSortAscTahun(dK *tabKendaraan, n int) {
+	var pass, i, acuan int
+	var temp dataKendaraan
+	for pass = 1; pass < n; pass++ {
+		acuan = pass - 1
+		for i = pass; i < n; i++ {
+			if dK[acuan].tahunProduksi > dK[i].tahunProduksi {
+				acuan = i
+			}
+		}
+		temp = dK[acuan]
+		dK[acuan] = dK[pass-1]
+		dK[pass-1] = temp
+	}
+}
+
+func SelectionSortDescTahun(dK *tabKendaraan, n int) {
+	var pass, i, acuan int
+	var temp dataKendaraan
+	for pass = 1; pass < n; pass++ {
+		acuan = pass - 1
+		for i = pass; i < n; i++ {
+			if dK[acuan].tahunProduksi < dK[i].tahunProduksi {
+				acuan = i
+			}
+		}
+		temp = dK[acuan]
+		dK[acuan] = dK[pass-1]
+		dK[pass-1] = temp
 	}
 }
 
